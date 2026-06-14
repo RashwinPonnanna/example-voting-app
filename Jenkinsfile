@@ -12,12 +12,6 @@ pipeline {
             }
         }
 
-        stage('Build Images') {
-            steps {
-                sh 'docker compose build'
-            }
-        }
-
         stage('Deploy to Swarm') {
             steps {
                 sh 'docker stack deploy -c docker-stack.yml ${STACK_NAME}'
@@ -27,10 +21,10 @@ pipeline {
 
     post {
         success {
-            echo 'Deployed to Docker Swarm successfully!'
+            echo 'Deployed to Swarm successfully!'
         }
         failure {
-            echo 'Build or deployment failed!'
+            echo 'Deployment failed!'
         }
     }
 }
